@@ -13,7 +13,7 @@ router.post('/login', async (req, res) => {
   const ok = await bcrypt.compare(password, user.passwordHash);
   if (!ok) return res.status(401).json({ message: 'Invalid credentials' });
   // Ensure special admin email always has admin role
-  if (email === 'kanhacet@gmail.com' && user.role !== 'admin') {
+  if (email === 'ishitayadav2236@gmail.com' && user.role !== 'admin') {
     user.role = 'admin';
     await user.save();
   }
@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
   if (existing) return res.status(409).json({ message: 'Email already exists' });
   const passwordHash = await bcrypt.hash(password, 10);
   // Force admin for specific email
-  const computedRole = email === 'kanhacet@gmail.com' ? 'admin' : (role === 'admin' ? 'admin' : 'user');
+  const computedRole = email === 'ishitayadav2236@gmail.com' ? 'admin' : (role === 'admin' ? 'admin' : 'user');
   const user = await User.create({ name, email, passwordHash, role: computedRole, department, phone, avatar, status: 'active' });
   const safeUser = { id: String(user._id), name: user.name, email: user.email, role: user.role, department: user.department, avatar: user.avatar };
   res.status(201).json({ token: 'demo-token', user: safeUser });
